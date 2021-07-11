@@ -2,6 +2,7 @@ import 'package:app/SigninPage.dart';
 import 'package:app/theme/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatefulWidget {
@@ -168,6 +169,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -178,124 +180,143 @@ class _SignupPageState extends State<SignupPage> {
               fontSize: 20,
             )),
       ),
-      body: Container(
-        child: Center(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                height: 200,
-                child: Image(
-                    image: AssetImage(
-                      'images/sign_up.png',
-                    ),
-                    fit: BoxFit.fill),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(16, 10, 0, 0),
-                child: Center(
-                  child: Text(
-                    'Use your email to create an account',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(16.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Provide a name';
-                            }
-                          },
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              labelText: 'Name',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                          onSaved: (input) => _name = input,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) {
-                              return 'Provide an email';
-                            }
-                          },
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: Colors.black,
-                              ),
-                              labelText: 'Email',
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                          onSaved: (input) => _email = input,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: TextFormField(
-                          validator: (input) {
-                            if (input.length < 6) {
-                              return 'Password should be 6 char atleast';
-                            }
-                          },
-                          decoration: InputDecoration(
-                              labelText: 'Password',
-                              prefixIcon: Icon(
-                                Icons.vpn_key,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                          onSaved: (input) => _password = input,
-                          obscureText: true,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 40, 0, 40),
-                        child: RaisedButton(
-                          padding:
-                              EdgeInsets.fromLTRB(100.0, 20.0, 100.0, 20.0),
-                          color: AppTheme.primarycolor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0)),
-                          onPressed: signup,
-                          child: Text('Sign Up',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0)),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(20),
-                        child: GestureDetector(
-                          onTap: navigateToSigninScreen,
-                          child: Text('Already have an account?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16.0)),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset(
+              'images/signup_top.png',
+              width: size.width * 0.35,
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Image.asset(
+              'images/signup_bottom.png',
+              width: size.width * 0.25,
+            ),
+          ),
+          Container(
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  height: 200,
+                  child: SvgPicture.asset(
+                    'images/signup.svg',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(16, 10, 0, 0),
+                  child: Center(
+                    child: Text(
+                      'Use your email to create an account',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            validator: (input) {
+                              if (input.isEmpty) {
+                                return 'Provide a name';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  color: AppTheme.primarycolor,
+                                ),
+                                labelText: 'Name',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            onSaved: (input) => _name = input,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            validator: (input) {
+                              if (input.isEmpty) {
+                                return 'Provide an email';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                  color: AppTheme.primarycolor,
+                                ),
+                                labelText: 'Email',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            onSaved: (input) => _email = input,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: TextFormField(
+                            validator: (input) {
+                              if (input.length < 6) {
+                                return 'Password should be 6 char atleast';
+                              }
+                            },
+                            decoration: InputDecoration(
+                                labelText: 'Password',
+                                prefixIcon: Icon(
+                                  Icons.vpn_key,
+                                  color: AppTheme.primarycolor,
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50.0))),
+                            onSaved: (input) => _password = input,
+                            obscureText: true,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0, 40, 0, 40),
+                          child: RaisedButton(
+                            padding:
+                                EdgeInsets.fromLTRB(100.0, 20.0, 100.0, 20.0),
+                            color: AppTheme.primarycolor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100.0)),
+                            onPressed: signup,
+                            child: Text('Sign Up',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20.0)),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(20),
+                          child: GestureDetector(
+                            onTap: navigateToSigninScreen,
+                            child: Text('Already have an account?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16.0)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

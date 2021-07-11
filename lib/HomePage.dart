@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'ProfilePage.dart';
 import 'Availabilities.dart';
-import 'HomeRules.dart';
+import 'homescreen/HomeRules.dart';
 import 'dart:async';
-import 'MentalRules.dart';
+import 'HealthGuide/MentalRules.dart';
 
 class HomePage extends StatefulWidget {
   @override

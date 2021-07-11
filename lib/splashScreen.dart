@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:app/theme/user_theme.dart';
 import 'package:flutter/material.dart';
-
 import 'HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
